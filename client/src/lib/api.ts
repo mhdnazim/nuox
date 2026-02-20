@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-    baseURL: "http://localhost:4200/api",
+    baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:4200/api",
 });
 
 export interface Teacher {
