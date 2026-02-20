@@ -11,29 +11,22 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 4200;
-
-// Security and Logging Middleware
-app.use(helmet());
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false,
+  })
+);
 app.use(morgan('dev'));
 
-// Middleware
-const allowedOrigins = [process.env.CLIENT_URL || 'http://localhost:3000'];
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true
+}));
 
-const corsOptions: cors.CorsOptions = {
-    origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
-        // Allow requests with no origin (like mobile apps or curl requests)
-        // or requests from the allowed origins
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true,
-};
-
-app.use(cors(corsOptions));
 app.use(express.json());
+
+// Serve static files from the "public" directory
+app.use("/uploads", express.static("public/uploads"));
 
 // Routes
 app.use('/api/auth', authRoutes);

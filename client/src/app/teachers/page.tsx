@@ -16,6 +16,10 @@ function TeachersDirectoryContent() {
     const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
+        console.log("BACKEND_URL", teachers);
+    }, [teachers]);
+
+    useEffect(() => {
         setIsAdmin(!!localStorage.getItem("token"));
 
         const handleStorageChange = () => {
@@ -70,9 +74,11 @@ function TeachersDirectoryContent() {
                 <h1 className="text-3xl font-bold">Teachers Directory</h1>
                 <div className="flex gap-3">
                     {isAdmin && (
-                        <button className="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-lg transition-colors font-medium shadow-sm">
-                            Bulk Import
-                        </button>
+                        <Link href="/import">
+                            <button className="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-lg transition-colors font-medium shadow-sm">
+                                Bulk Import
+                            </button>
+                        </Link>
                     )}
                     <Link href="/teachers/new">
                         <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg transition-colors font-medium shadow-sm">

@@ -19,10 +19,10 @@ export const initializeDB = async () => {
         console.log(`✅ MySQL Connected to ${process.env.DB_NAME}`);
 
         // Temporarily disable foreign key checks to drop the tables if they're referenced elsewhere
-        // await connection.query('SET FOREIGN_KEY_CHECKS = 0');
-        // await connection.query('DROP TABLE IF EXISTS teacher_subjects'); // Clean up old junction table if it was created
-        // await connection.query('DROP TABLE IF EXISTS teachers');
-        // await connection.query('SET FOREIGN_KEY_CHECKS = 1');
+        await connection.query('SET FOREIGN_KEY_CHECKS = 0');
+        await connection.query('DROP TABLE IF EXISTS teacher_subjects'); // Clean up old junction table if it was created
+        await connection.query('DROP TABLE IF EXISTS teachers');
+        await connection.query('SET FOREIGN_KEY_CHECKS = 1');
 
         // Create the updated teachers table
         await connection.query(`
